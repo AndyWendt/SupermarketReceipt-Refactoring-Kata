@@ -11,6 +11,11 @@ use Supermarket\Model\ReceiptItem;
 
 class ReceiptPrinter
 {
+    public static function instance(int $columns = 40)
+    {
+        return new self(columns: $columns);
+    }
+
     public function __construct(
         private int $columns = 40
     ) {

@@ -17,7 +17,7 @@ class ReceiptPrinterTest extends TestCase
     {
         $receipt = new Receipt();
 
-        $instance = new ReceiptPrinter();
+        $instance = ReceiptPrinter::instance();
 
         $line = (new ReceiptLineItem(columns: 40))->formatLine(name: 'Total:', value: '0.00');
         $result = $instance->printReceipt($receipt);
@@ -39,7 +39,7 @@ class ReceiptPrinterTest extends TestCase
         $receipt->addDiscount($barDiscount);
 
 
-        $instance = new ReceiptPrinter();
+        $instance = ReceiptPrinter::instance();
 
         $result = $instance->printReceipt($receipt);
 
