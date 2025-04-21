@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Supermarket\Model\Discount;
 use Supermarket\Model\Product;
 use Supermarket\Model\ProductUnit;
 use Supermarket\Model\Receipt;
@@ -24,13 +25,20 @@ class ReceiptPrinterTest extends TestCase
         $this->assertSame("\n$line", $result);
     }
 
-    public function test_it_presents_items()
+    public function test_it_presents_items_and_discounts()
     {
         $product = new Product('Foo', ProductUnit::EACH());
+        $fooDiscount = $this->discountFactory('Foo', 20000.00);
+        $barDiscount = $this->discountFactory('Bar', 1.00);
 
         $receipt = new Receipt();
+
         $receipt->addProduct(product: $product, quantity: 5, price: 5.00, totalPrice: 25.00);
         $receipt->addProduct(product: $product, quantity: 1, price: 1000.00, totalPrice: 1000.00);
+        $receipt->addDiscount($fooDiscount);
+        $receipt->addDiscount($barDiscount);
+
+
         $instance = new ReceiptPrinter();
 
         $result = $instance->printReceipt($receipt);
@@ -38,7 +46,21 @@ class ReceiptPrinterTest extends TestCase
         $this->assertSame('Foo                                25.00
   5.00 * 5
 Foo                              1000.00
+Foo Discount(Foo)               20000.00
+Bar Discount(Bar)                   1.00
 
-Total:                           1025.00', $result);
+Total:                          21026.00', $result);
+    }
+
+    /**
+     * @param string $productName
+     * @param float $discount
+     * @return Discount
+     */
+    private function discountFactory(string $productName, float $discount): Discount
+    {
+        $fooProduct = new Product($productName, ProductUnit::EACH());
+        $fooDiscount = new Discount($fooProduct, "$productName Discount", $discount);
+        return $fooDiscount;
     }
 }
