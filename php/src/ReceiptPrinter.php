@@ -41,13 +41,13 @@ class ReceiptPrinter
 
     protected function presentReceiptItem(ReceiptItem $item): string
     {
-        $price = self::presentPrice($item->getTotalPrice());
+        $price = (string)new Price(price: $item->getTotalPrice());
         $name = $item->getProduct()->getName();
 
         $line = $this->receiptLineItem->formatLine(name: $name, value: $price) . "\n";
 
         if ($item->getQuantity() !== 1.0) {
-            $line .= '  ' . self::presentPrice($item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
+            $line .= '  ' . (string)new Price(price: $item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
         }
         return $line;
     }
@@ -55,7 +55,7 @@ class ReceiptPrinter
     protected function presentDiscount(Discount $discount): string
     {
         $name = "{$discount->getDescription()}({$discount->getProduct()->getName()})";
-        $value = self::presentPrice($discount->getDiscountAmount());
+        $value = (string)new Price(price: $discount->getDiscountAmount());
 
         return $this->receiptLineItem->formatLine(name: $name, value: $value) . "\n";
     }
@@ -63,14 +63,9 @@ class ReceiptPrinter
     protected function presentTotal(Receipt $receipt): string
     {
         $name = 'Total: ';
-        $value = self::presentPrice($receipt->getTotalPrice());
+        $value = (string)new Price(price: $receipt->getTotalPrice());
 
         return $this->receiptLineItem->formatLine(name: $name, value: $value);
-    }
-
-    public static function presentPrice(float $price): string
-    {
-        return (string) new Price(price: $price);
     }
 
     private static function presentQuantity(ReceiptItem $item): string

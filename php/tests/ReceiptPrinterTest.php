@@ -7,6 +7,7 @@ use Supermarket\Model\Product;
 use Supermarket\Model\ProductUnit;
 use Supermarket\Model\Receipt;
 use Supermarket\Model\ReceiptItem;
+use Supermarket\Price;
 use Supermarket\ReceiptLineItem;
 use Supermarket\ReceiptPrinter;
 use PHPUnit\Framework\TestCase;
@@ -27,7 +28,7 @@ class ReceiptPrinterTest extends TestCase
 
     public function test_it_presents_a_price()
     {
-        $result = ReceiptPrinter::presentPrice(500.001);
+        $result = (string)new Price(price: 500.001);
         $this->assertSame('500.00', $result);
     }
 
