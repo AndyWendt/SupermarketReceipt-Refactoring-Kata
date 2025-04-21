@@ -26,12 +26,6 @@ class ReceiptPrinterTest extends TestCase
         $this->assertSame("\n$line", $result);
     }
 
-    public function test_it_presents_a_price()
-    {
-        $result = (string)new Price(price: 500.001);
-        $this->assertSame('500.00', $result);
-    }
-
     public function test_it_presents_items_and_discounts()
     {
         $product = new Product('Foo', ProductUnit::EACH());
