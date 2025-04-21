@@ -13,11 +13,11 @@ class ReceiptPrinter
 {
     public static function instance(int $columns = 40)
     {
-        return new self(columns: $columns);
+        return new self(receiptLineItem: new ReceiptLineItem($columns));
     }
 
     public function __construct(
-        private int $columns = 40
+        private readonly ReceiptLineItem $receiptLineItem
     ) {
     }
 
@@ -44,7 +44,7 @@ class ReceiptPrinter
         $price = self::presentPrice($item->getTotalPrice());
         $name = $item->getProduct()->getName();
 
-        $line = (new ReceiptLineItem(columns: $this->columns))->formatLine(name: $name, value: $price) . "\n";
+        $line = $this->receiptLineItem->formatLine(name: $name, value: $price) . "\n";
 
         if ($item->getQuantity() !== 1.0) {
             $line .= '  ' . self::presentPrice($item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
@@ -57,14 +57,15 @@ class ReceiptPrinter
         $name = "{$discount->getDescription()}({$discount->getProduct()->getName()})";
         $value = self::presentPrice($discount->getDiscountAmount());
 
-        return (new ReceiptLineItem(columns: $this->columns))->formatLine(name: $name, value: $value) . "\n";
+        return $this->receiptLineItem->formatLine(name: $name, value: $value) . "\n";
     }
 
     protected function presentTotal(Receipt $receipt): string
     {
         $name = 'Total: ';
         $value = self::presentPrice($receipt->getTotalPrice());
-        return (new ReceiptLineItem(columns: $this->columns))->formatLine(name: $name, value: $value);
+
+        return $this->receiptLineItem->formatLine(name: $name, value: $value);
     }
 
     protected static function presentPrice(float $price): string
