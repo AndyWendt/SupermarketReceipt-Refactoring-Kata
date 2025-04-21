@@ -62,9 +62,11 @@ class ReceiptPrinter
         return $this->formatLineWithWhitespace($name, $value);
     }
 
-    protected function formatLineWithWhitespace(string $name, string $value): string
+    public function formatLineWithWhitespace(string $name, string $value): string
     {
-        $whitespaceSize = $this->columns - strlen($name) - strlen($value);
+        $columns = $this->columns;
+
+        $whitespaceSize = $columns - strlen($name) - strlen($value);
         return $name . str_repeat(' ', $whitespaceSize) . $value;
     }
 
