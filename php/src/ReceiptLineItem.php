@@ -3,14 +3,13 @@
 namespace Supermarket;
 class ReceiptLineItem
 {
-    public function __construct(private int $columns, private string $name, private string $value)
+    public function __construct(private int $columns)
     {
-        
     }
 
-    public function __toString(): string
+    public function formatLine(string $name, string $value): string
     {
-        $whitespaceSize = $this->columns - strlen($this->name) - strlen($this->value);
-        return $this->name . str_repeat(' ', $whitespaceSize) . $this->value;
+        $whitespaceSize = $this->columns - strlen($name) - strlen($value);
+        return $name . str_repeat(' ', $whitespaceSize) . $value;
     }
 }

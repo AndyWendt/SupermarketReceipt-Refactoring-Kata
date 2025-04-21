@@ -15,7 +15,7 @@ class ReceiptPrinterTest extends TestCase
 
         $instance = new ReceiptPrinter();
 
-        $line = new ReceiptLineItem(40, 'Total:', '0.00');
+        $line = (new ReceiptLineItem(columns: 40))->formatLine(name: 'Total:', value: '0.00');
         $this->assertSame("\n$line", $instance->printReceipt($receipt));
     }
 }

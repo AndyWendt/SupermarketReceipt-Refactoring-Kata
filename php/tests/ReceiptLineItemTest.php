@@ -12,7 +12,7 @@ class ReceiptLineItemTest extends TestCase
      */
     public function test_it_formats_a_line_with_the_correct_column_count($columns, $name, $value, $expected)
     {
-        $instance = (string) new ReceiptLineItem(columns: $columns, name: $name, value: $value);
+        $instance = (new ReceiptLineItem(columns: $columns))->formatLine(name: $name, value: $value);
 
         $this->assertSame($expected, $instance);
     }
@@ -20,7 +20,7 @@ class ReceiptLineItemTest extends TestCase
     public function test_it_raises_an_error_when_there_are_too_few_columns_for_the_name_and_value()
     {
         $this->expectException(\ValueError::class);
-        (string) new ReceiptLineItem(columns: 9, name: 'Total:', value: '0.00');
+        (new ReceiptLineItem(columns: 9))->formatLine(name: 'Total:', value: '0.00');
     }
 
     public function lineDataProvider()
