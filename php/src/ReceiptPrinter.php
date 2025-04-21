@@ -39,7 +39,7 @@ class ReceiptPrinter
         $price = self::presentPrice($item->getTotalPrice());
         $name = $item->getProduct()->getName();
 
-        $line = $this->formatLineWithWhitespace($name, $price) . "\n";
+        $line = (new ReceiptLineItem(columns: $this->columns))->formatLine(name: $name, value: $price) . "\n";
 
         if ($item->getQuantity() !== 1.0) {
             $line .= '  ' . self::presentPrice($item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
@@ -52,18 +52,13 @@ class ReceiptPrinter
         $name = "{$discount->getDescription()}({$discount->getProduct()->getName()})";
         $value = self::presentPrice($discount->getDiscountAmount());
 
-        return $this->formatLineWithWhitespace($name, $value) . "\n";
+        return (new ReceiptLineItem(columns: $this->columns))->formatLine(name: $name, value: $value) . "\n";
     }
 
     protected function presentTotal(Receipt $receipt): string
     {
         $name = 'Total: ';
         $value = self::presentPrice($receipt->getTotalPrice());
-        return $this->formatLineWithWhitespace($name, $value);
-    }
-
-    public function formatLineWithWhitespace(string $name, string $value): string
-    {
         return (new ReceiptLineItem(columns: $this->columns))->formatLine(name: $name, value: $value);
     }
 
