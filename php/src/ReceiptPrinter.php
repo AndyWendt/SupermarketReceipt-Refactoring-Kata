@@ -70,7 +70,7 @@ class ReceiptPrinter
 
     public static function presentPrice(float $price): string
     {
-        return sprintf('%.2F', $price);
+        return (string) new Price(price: $price);
     }
 
     private static function presentQuantity(ReceiptItem $item): string
