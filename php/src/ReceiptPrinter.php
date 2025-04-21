@@ -68,7 +68,7 @@ class ReceiptPrinter
         return $this->receiptLineItem->formatLine(name: $name, value: $value);
     }
 
-    protected static function presentPrice(float $price): string
+    public static function presentPrice(float $price): string
     {
         return sprintf('%.2F', $price);
     }
