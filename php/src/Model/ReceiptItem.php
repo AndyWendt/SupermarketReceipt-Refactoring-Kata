@@ -51,4 +51,11 @@ class ReceiptItem
     {
         return new Amount(amount: $this->getTotalPrice());
     }
+
+    public function quantityString(): string
+    {
+        return $this->getProduct()->getUnit()->equals(ProductUnit::EACH()) ?
+            sprintf('%x', $this->getQuantity()) :
+            sprintf('%.3F', $this->getQuantity());
+    }
 }
