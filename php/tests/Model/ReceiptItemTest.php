@@ -45,6 +45,17 @@ class ReceiptItemTest extends TestCase
         $this->assertSame('10.00 * c', $result);
     }
 
+    /**
+     * @dataProvider quantityIsOneDataProvider
+     */
+    public function test_it_determines_if_it_quantity_equals_one($quantity, $expected)
+    {
+        $product = Product::fakeInstance(productUnit: ProductUnit::EACH());
+        $receiptItem = ReceiptItem::fakeInstance(product: $product, quantity: $quantity);
+
+        $this->assertSame($expected, $receiptItem->quantityIsOne());
+    }
+
     public function kiloDataProvider()
     {
         return [
@@ -62,6 +73,17 @@ class ReceiptItemTest extends TestCase
             [16, '10'],
             [12, 'c'],
             [5, '5'],
+        ];
+    }
+
+    public function quantityIsOneDataProvider()
+    {
+        return [
+            [1.0, true],
+            [2.0, false],
+            [0.0, false],
+            [100.0, false],
+            [-1.0, false],
         ];
     }
 }

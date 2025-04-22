@@ -68,4 +68,9 @@ class ReceiptItem
     {
         return $this->amount() . ' * ' . $this->quantityRepresentation();
     }
+
+    public function quantityIsOne()
+    {
+        return $this->getQuantity() === 1.0;
+    }
 }
