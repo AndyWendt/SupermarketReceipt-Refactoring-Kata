@@ -47,9 +47,13 @@ class ReceiptPrinterTest extends TestCase
         $receiptLineItem = ReceiptLineItem::instance();
 
         $expected = $receiptLineItem->formatLine('Foo', '25.00')
-            . "\n  5.00 * 5\n" .
+            . "\n" .
+            $receiptLineItem->indented("5.00 * 5")
+            . "\n" .
             $receiptLineItem->formatLine('Foo', '25.00')
-            . "\n  5.00 * 0\n" .
+            . "\n" .
+            $receiptLineItem->indented("5.00 * 0")
+            . "\n" .
             $receiptLineItem->formatLine('Foo', '1000.00') .
             "\n" .
             $receiptLineItem->formatLine('Foo Discount(Foo)', '20000.00') .
