@@ -17,7 +17,7 @@ class ReceiptItemTest extends TestCase
         $product = Product::fakeInstance(productUnit: ProductUnit::KILO());
         $receiptItem = ReceiptItem::fakeInstance(product: $product, quantity: $quantity);
 
-        $result = $receiptItem->quantityString();
+        $result = $receiptItem->quantityRepresentation();
 
         $this->assertSame($expected, $result);
     }
@@ -30,7 +30,7 @@ class ReceiptItemTest extends TestCase
         $product = Product::fakeInstance(productUnit: ProductUnit::EACH());
         $receiptItem = ReceiptItem::fakeInstance(product: $product, quantity: $quantity);
 
-        $result = $receiptItem->quantityString();
+        $result = $receiptItem->quantityRepresentation();
 
         $this->assertSame($expected, $result);
     }
