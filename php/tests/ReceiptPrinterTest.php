@@ -26,7 +26,7 @@ class ReceiptPrinterTest extends TestCase
 
     public function test_it_presents_a_discount()
     {
-        $discount = $this->discountFactory('Fizz', 5.00);
+        $discount = Discount::fakeInstance('Fizz', 5.00);
         $result = ReceiptPrinter::instance()->presentDiscount($discount);
         $this->assertSame('Fizz Discount(Fizz)                 5.00
 ', $result);
@@ -35,8 +35,8 @@ class ReceiptPrinterTest extends TestCase
     public function test_it_presents_items_and_discounts()
     {
         $product = new Product('Foo', ProductUnit::EACH());
-        $fooDiscount = $this->discountFactory('Foo', 20000.00);
-        $barDiscount = $this->discountFactory('Bar', 1.00);
+        $fooDiscount = Discount::fakeInstance('Foo', 20000.00);
+        $barDiscount = Discount::fakeInstance('Bar', 1.00);
 
         $receipt = new Receipt();
 
@@ -59,15 +59,4 @@ Bar Discount(Bar)                   1.00
 Total:                          21026.00', $result);
     }
 
-    /**
-     * @param string $productName
-     * @param float $discount
-     * @return Discount
-     */
-    private function discountFactory(string $productName, float $discount): Discount
-    {
-        $fooProduct = new Product($productName, ProductUnit::EACH());
-        $fooDiscount = new Discount($fooProduct, "$productName Discount", $discount);
-        return $fooDiscount;
-    }
 }

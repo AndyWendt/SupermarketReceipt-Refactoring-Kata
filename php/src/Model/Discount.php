@@ -6,6 +6,12 @@ namespace Supermarket\Model;
 
 class Discount
 {
+    public static function fakeInstance(string $productName, float $discount)
+    {
+        $product = new Product($productName, ProductUnit::EACH());
+        return new Discount($product, "$productName Discount", $discount);
+    }
+
     public function __construct(
         private Product $product,
         private string $description,
