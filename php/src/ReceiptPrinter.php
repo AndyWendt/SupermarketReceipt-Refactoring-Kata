@@ -23,12 +23,12 @@ class ReceiptPrinter
 
     public function printReceipt(Receipt $receipt): string
     {
-        $itemLines = $this->itemLines($receipt);
-        $discountLines = $this->discountLines($receipt);
-        $blankLine = $this->blankLine();
-        $resultLine = $this->resultLine($receipt);
-
-        $out = array_merge($itemLines, $discountLines, $blankLine, $resultLine);
+        $out = array_merge(
+            $this->itemLines($receipt),
+            $this->discountLines($receipt),
+            $this->blankLine(),
+            $this->totalLine($receipt)
+        );
 
         return implode("\n", $out);
     }
@@ -68,7 +68,7 @@ class ReceiptPrinter
      * @param Receipt $receipt
      * @return array
      */
-    public function resultLine(Receipt $receipt): array
+    public function totalLine(Receipt $receipt): array
     {
         return [$this->receiptLineItem->formatLine(name: 'Total: ', value: (string)$receipt->amount())];
     }
