@@ -50,7 +50,7 @@ class ReceiptPrinterTest extends TestCase
             . "\n" .
             $receiptLineItem->indented("5.00 * 5")
             . "\n" .
-            $receiptLineItem->formatLine('Foo', '25.00')
+            $receiptLineItem->formatLine('Foo', '0.00')
             . "\n" .
             $receiptLineItem->indented("5.00 * 0")
             . "\n" .
@@ -61,7 +61,7 @@ class ReceiptPrinterTest extends TestCase
             $receiptLineItem->formatLine('Bar Discount(Bar)', '1.00') .
             "\n" .
             "\n" .
-            $receiptLineItem->formatLine('Total:', '21051.00')
+            $receiptLineItem->formatLine('Total:', '21026.00')
         ;
 
         $this->assertSame($expected, $result);

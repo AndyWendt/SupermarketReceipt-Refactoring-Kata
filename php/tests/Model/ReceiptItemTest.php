@@ -9,6 +9,13 @@ use PHPUnit\Framework\TestCase;
 
 class ReceiptItemTest extends TestCase
 {
+
+    public function test_it_returns_the_calculated_total_price()
+    {
+        $instance = ReceiptItem::fakeInstance(quantity: 100, price: 2.00);
+        $this->assertEquals(200, $instance->getTotalPrice());
+    }
+
     /**
      * @dataProvider kiloDataProvider
      */

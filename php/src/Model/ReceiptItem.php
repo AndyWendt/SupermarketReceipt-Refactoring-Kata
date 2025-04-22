@@ -44,7 +44,7 @@ class ReceiptItem
 
     public function getTotalPrice(): float
     {
-        return $this->totalPrice;
+        return $this->quantity * $this->price;
     }
 
     public function description(): string
