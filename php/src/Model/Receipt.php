@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Supermarket\Model;
 
+use Supermarket\Amount;
+
 class Receipt
 {
     /**
@@ -26,6 +28,11 @@ class Receipt
             $total += $discount->getDiscountAmount();
         }
         return $total;
+    }
+
+    public function amount(): Amount
+    {
+        return new Amount(amount: $this->getTotalPrice());
     }
 
     public function addProduct(Product $product, float $quantity, float $price, float $totalPrice): void
