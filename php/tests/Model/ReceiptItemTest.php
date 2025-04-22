@@ -12,7 +12,7 @@ class ReceiptItemTest extends TestCase
     /**
      * @dataProvider kiloDataProvider
      */
-    public function test_it_returns_the_right_quantity_string_for_kilo($quantity, $expected)
+    public function test_it_returns_the_right_quantity_representation_for_kilo($quantity, $expected)
     {
         $product = Product::fakeInstance(productUnit: ProductUnit::KILO());
         $receiptItem = ReceiptItem::fakeInstance(product: $product, quantity: $quantity);
@@ -25,7 +25,7 @@ class ReceiptItemTest extends TestCase
     /**
      * @dataProvider eachDataProvider
      */
-    public function test_it_returns_the_right_quantity_string_for_each($quantity, $expected)
+    public function test_it_returns_the_right_quantity_representation_for_each($quantity, $expected)
     {
         $product = Product::fakeInstance(productUnit: ProductUnit::EACH());
         $receiptItem = ReceiptItem::fakeInstance(product: $product, quantity: $quantity);
@@ -33,6 +33,16 @@ class ReceiptItemTest extends TestCase
         $result = $receiptItem->quantityRepresentation();
 
         $this->assertSame($expected, $result);
+    }
+
+    public function test_it_returns_the_right_quantity_string_for_each()
+    {
+        $product = Product::fakeInstance(productUnit: ProductUnit::EACH());
+        $receiptItem = ReceiptItem::fakeInstance(product: $product, quantity: 12);
+
+        $result = $receiptItem->quantityString();
+
+        $this->assertSame('10.00 * c', $result);
     }
 
     public function kiloDataProvider()
@@ -51,6 +61,7 @@ class ReceiptItemTest extends TestCase
             [1234, '4d2'],
             [16, '10'],
             [12, 'c'],
+            [5, '5'],
         ];
     }
 }

@@ -63,4 +63,9 @@ class ReceiptItem
             sprintf('%x', $this->getQuantity()) :
             sprintf('%.3F', $this->getQuantity());
     }
+
+    public function quantityString(): string
+    {
+        return $this->amount() . ' * ' . $this->quantityRepresentation();
+    }
 }
