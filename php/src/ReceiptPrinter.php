@@ -46,7 +46,7 @@ class ReceiptPrinter
         $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string) $item->totalAmount()) . "\n";
 
         if (!$item->quantityIsOne()) {
-            $line .= '  ' . (string) $item->quantityString() . "\n";
+            $line .= $this->receiptLineItem->indented($item->quantityString()) . "\n";
         }
         return $line;
     }
