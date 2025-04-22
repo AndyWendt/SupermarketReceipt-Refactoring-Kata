@@ -54,9 +54,7 @@ class ReceiptPrinter
 
     public function presentDiscount(Discount $discount): string
     {
-        $value = (string)new Price(price: $discount->getDiscountAmount());
-
-        return $this->receiptLineItem->formatLine(name: $discount->lineDescription(), value: $value) . "\n";
+        return $this->receiptLineItem->formatLine(name: $discount->lineDescription(), value: (string) $discount->amount()) . "\n";
     }
 
     protected function presentTotal(Receipt $receipt): string
