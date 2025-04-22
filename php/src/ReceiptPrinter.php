@@ -23,31 +23,53 @@ class ReceiptPrinter
 
     public function printReceipt(Receipt $receipt): string
     {
-        $out = [];
+        $itemLines = $this->itemLines($receipt);
+        $discountLines = $this->discountLines($receipt);
+        $blankLine = $this->blankLine();
+        $resultLine = $this->resultLine($receipt);
 
-        foreach ($receipt->getItems() as $item) {
-            $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string)$item->totalAmount());
-            array_push($out, $line);
-
-            if (!$item->quantityIsOne()) {
-                $quantityLine = $this->receiptLineItem->indented($item->quantityString());
-                array_push($out, $quantityLine);
-            }
-        }
-
-
-
-        foreach ($receipt->getDiscounts() as $discount) {
-            $discountPresentation = $this->receiptLineItem->formatLine(name: $discount->lineDescription(), value: (string)$discount->amount());
-            array_push($out, $discountPresentation);
-        }
-
-        array_push($out, '');
-
-        $resultLine = $this->receiptLineItem->formatLine(name: 'Total: ', value: (string)$receipt->amount());
-        array_push($out, $resultLine);
+        $out = array_merge($itemLines, $discountLines, $blankLine, $resultLine);
 
         return implode("\n", $out);
     }
 
+    private function itemLines(Receipt $receipt): array
+    {
+        $itemLines = [];
+        foreach ($receipt->getItems() as $item) {
+            $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string)$item->totalAmount());
+            array_push($itemLines, $line);
+
+            if (!$item->quantityIsOne()) {
+                $quantityLine = $this->receiptLineItem->indented($item->quantityString());
+                array_push($itemLines, $quantityLine);
+            }
+        }
+        return $itemLines;
+    }
+
+    private function discountLines(Receipt $receipt): array
+    {
+        $discountLines = [];
+
+        foreach ($receipt->getDiscounts() as $discount) {
+            $discountPresentation = $this->receiptLineItem->formatLine(name: $discount->lineDescription(), value: (string)$discount->amount());
+            array_push($discountLines, $discountPresentation);
+        }
+        return $discountLines;
+    }
+
+    private function blankLine(): array
+    {
+        return [''];
+    }
+
+    /**
+     * @param Receipt $receipt
+     * @return array
+     */
+    public function resultLine(Receipt $receipt): array
+    {
+        return [$this->receiptLineItem->formatLine(name: 'Total: ', value: (string)$receipt->amount())];
+    }
 }
