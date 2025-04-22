@@ -52,7 +52,7 @@ class ReceiptPrinter
         return $line;
     }
 
-    protected function presentDiscount(Discount $discount): string
+    public function presentDiscount(Discount $discount): string
     {
         $name = "{$discount->getDescription()}({$discount->getProduct()->getName()})";
         $value = (string)new Price(price: $discount->getDiscountAmount());

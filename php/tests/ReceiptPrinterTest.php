@@ -6,8 +6,6 @@ use Supermarket\Model\Discount;
 use Supermarket\Model\Product;
 use Supermarket\Model\ProductUnit;
 use Supermarket\Model\Receipt;
-use Supermarket\Model\ReceiptItem;
-use Supermarket\Price;
 use Supermarket\ReceiptLineItem;
 use Supermarket\ReceiptPrinter;
 use PHPUnit\Framework\TestCase;
@@ -24,6 +22,14 @@ class ReceiptPrinterTest extends TestCase
         $result = $instance->printReceipt($receipt);
 
         $this->assertSame("\n$line", $result);
+    }
+
+    public function test_it_presents_a_discount()
+    {
+        $discount = $this->discountFactory('Fizz', 5.00);
+        $result = ReceiptPrinter::instance()->presentDiscount($discount);
+        $this->assertSame('Fizz Discount(Fizz)                 5.00
+', $result);
     }
 
     public function test_it_presents_items_and_discounts()
