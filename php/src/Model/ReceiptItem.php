@@ -8,17 +8,16 @@ use Supermarket\Amount;
 
 class ReceiptItem
 {
-    public static function fakeInstance(?Product $product = null, float $quantity = 5, float $price = 10, float $totalPrice = 50)
+    public static function fakeInstance(?Product $product = null, float $quantity = 5, float $price = 10)
     {
         $product = $product ?: Product::fakeInstance();
-        return new self(product: $product, quantity: $quantity, price: $price, totalPrice: $totalPrice);
+        return new self(product: $product, quantity: $quantity, price: $price);
     }
 
     public function __construct(
         private Product $product,
         private float $quantity,
-        private float $price,
-        private float $totalPrice
+        private float $price
     ) {
     }
 
