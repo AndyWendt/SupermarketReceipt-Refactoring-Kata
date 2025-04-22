@@ -24,13 +24,14 @@ class ReceiptPrinter
     public function printReceipt(Receipt $receipt): string
     {
         $out = [];
+
         foreach ($receipt->getItems() as $item) {
             $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string)$item->totalAmount());
             array_push($out, $line);
 
             if (!$item->quantityIsOne()) {
-                $rline = $this->receiptLineItem->indented($item->quantityString());
-                array_push($out, $rline);
+                $quantityLine = $this->receiptLineItem->indented($item->quantityString());
+                array_push($out, $quantityLine);
             }
         }
 
@@ -42,9 +43,10 @@ class ReceiptPrinter
         }
 
         array_push($out, '');
-        $resultLine = $this->receiptLineItem->formatLine(name: 'Total: ', value: (string)$receipt->amount());
 
+        $resultLine = $this->receiptLineItem->formatLine(name: 'Total: ', value: (string)$receipt->amount());
         array_push($out, $resultLine);
+
         return implode("\n", $out);
     }
 
