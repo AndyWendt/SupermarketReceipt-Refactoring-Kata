@@ -6,6 +6,7 @@ use Supermarket\Model\Discount;
 use Supermarket\Model\Product;
 use Supermarket\Model\ProductUnit;
 use Supermarket\Model\Receipt;
+use Supermarket\Model\ReceiptItem;
 use Supermarket\ReceiptLineItem;
 use Supermarket\ReceiptPrinter;
 use PHPUnit\Framework\TestCase;
@@ -26,7 +27,7 @@ class ReceiptPrinterTest extends TestCase
 
     public function test_it_presents_items_and_discounts()
     {
-        $product = new Product('Foo', ProductUnit::EACH());
+        $product = Product::fakeInstance();
         $fooDiscount = Discount::fakeInstance('Foo', 20000.00);
         $barDiscount = Discount::fakeInstance('Bar', 1.00);
 

@@ -8,6 +8,11 @@ use Ds\Hashable;
 
 class Product implements Hashable
 {
+    public static function fakeInstance(string $productName = 'Foo', ?ProductUnit $productUnit = null)
+    {
+        return new self($productName, $productUnit?: ProductUnit::EACH());
+    }
+
     public function __construct(
         private string $name,
         private ProductUnit $unit

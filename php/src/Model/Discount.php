@@ -10,7 +10,7 @@ class Discount
 {
     public static function fakeInstance(string $productName, float $discount)
     {
-        $product = new Product($productName, ProductUnit::EACH());
+        $product = Product::fakeInstance(productName: $productName);
         return new Discount($product, "$productName Discount", $discount);
     }
 
