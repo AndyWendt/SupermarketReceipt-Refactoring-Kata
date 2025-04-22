@@ -33,4 +33,9 @@ class Discount
     {
         return $this->product;
     }
+
+    public function lineDescription()
+    {
+        return "{$this->getDescription()}({$this->getProduct()->getName()})";
+    }
 }
