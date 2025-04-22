@@ -68,7 +68,7 @@ class ReceiptPrinter
      * @param Receipt $receipt
      * @return array
      */
-    public function totalLine(Receipt $receipt): array
+    private function totalLine(Receipt $receipt): array
     {
         return [$this->receiptLineItem->formatLine(name: 'Total: ', value: (string)$receipt->amount())];
     }
