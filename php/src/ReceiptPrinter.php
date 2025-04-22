@@ -41,13 +41,13 @@ class ReceiptPrinter
 
     protected function presentReceiptItem(ReceiptItem $item): string
     {
-        $price = (string)new Price(price: $item->getTotalPrice());
+        $price = (string)new Amount(amount: $item->getTotalPrice());
         $name = $item->getProduct()->getName();
 
         $line = $this->receiptLineItem->formatLine(name: $name, value: $price) . "\n";
 
         if ($item->getQuantity() !== 1.0) {
-            $line .= '  ' . (string)new Price(price: $item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
+            $line .= '  ' . (string)new Amount(amount: $item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
         }
         return $line;
     }
@@ -55,7 +55,7 @@ class ReceiptPrinter
     protected function presentTotal(Receipt $receipt): string
     {
         $name = 'Total: ';
-        $value = (string)new Price(price: $receipt->getTotalPrice());
+        $value = (string)new Amount(amount: $receipt->getTotalPrice());
 
         return $this->receiptLineItem->formatLine(name: $name, value: $value);
     }

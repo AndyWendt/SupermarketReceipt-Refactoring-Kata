@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Supermarket\Price;
+use Supermarket\Amount;
 use PHPUnit\Framework\TestCase;
 
 class PriceTest extends TestCase
@@ -12,7 +12,7 @@ class PriceTest extends TestCase
      */
     public function test_it_presents_a_price($price, $expected)
     {
-        $result = (string) new Price($price);
+        $result = (string) new Amount($price);
         $this->assertSame($expected, $result);
     }
 

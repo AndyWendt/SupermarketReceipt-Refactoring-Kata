@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Supermarket\Model;
 
-use Supermarket\Price;
+use Supermarket\Amount;
 
 class Discount
 {
@@ -41,8 +41,8 @@ class Discount
         return "{$this->getDescription()}({$this->getProduct()->getName()})";
     }
 
-    public function amount(): Price
+    public function amount(): Amount
     {
-        return new Price(price: $this->getDiscountAmount());
+        return new Amount(amount: $this->getDiscountAmount());
     }
 }
