@@ -47,7 +47,7 @@ class ReceiptItem
         return $this->getProduct()->getName();
     }
 
-    public function amount(): Amount
+    public function totalAmount(): Amount
     {
         return new Amount(amount: $this->getTotalPrice());
     }
