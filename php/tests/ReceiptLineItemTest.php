@@ -17,6 +17,13 @@ class ReceiptLineItemTest extends TestCase
         $this->assertSame($expected, $instance);
     }
 
+    public function test_it_formats_an_indented_line()
+    {
+        $result = ReceiptLineItem::instance()->indented('one two');
+
+        $this->assertSame('  one two', $result);
+    }
+
     public function test_it_raises_an_error_when_there_are_too_few_columns_for_the_name_and_value()
     {
         $this->expectException(\ValueError::class);

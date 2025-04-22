@@ -17,4 +17,9 @@ class ReceiptLineItem
         $whitespaceSize = $this->columns - strlen($name) - strlen($value);
         return $name . str_repeat(' ', $whitespaceSize) . $value;
     }
+
+    public function indented(string $value): string
+    {
+        return "  $value";
+    }
 }
