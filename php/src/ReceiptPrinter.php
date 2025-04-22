@@ -23,14 +23,14 @@ class ReceiptPrinter
 
     public function printReceipt(Receipt $receipt): string
     {
-        $out = array_merge(
+        $lines = array_merge(
             $this->itemLines($receipt),
             $this->discountLines($receipt),
             $this->blankLine(),
             $this->totalLine($receipt)
         );
 
-        return implode("\n", $out);
+        return implode("\n", $lines);
     }
 
     private function itemLines(Receipt $receipt): array
