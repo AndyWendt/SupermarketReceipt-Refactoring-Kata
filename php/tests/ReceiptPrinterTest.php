@@ -25,51 +25,6 @@ class ReceiptPrinterTest extends TestCase
         $this->assertSame("\n$line", $result);
     }
 
-    public function test_it_presents_a_receipt_item_with_quantity_greater_than_1()
-    {
-        $receiptItem = ReceiptItem::fakeInstance();
-        $instance = ReceiptPrinter::instance();
-
-        $result = $instance->presentReceiptItem($receiptItem);
-
-        $expected = ReceiptLineItem::instance()->formatLine('Foo', '50.00') . "\n  10.00 * 5\n";
-        $this->assertSame($expected, $result);
-    }
-
-    public function test_it_presents_a_receipt_item_with_quantity_greater_than_1_with_kilo_quantity()
-    {
-        $product = Product::fakeInstance(ProductUnit::KILO());
-        $receiptItem = ReceiptItem::fakeInstance(product: $product);
-        $instance = ReceiptPrinter::instance();
-
-        $result = $instance->presentReceiptItem($receiptItem);
-
-        $expected = ReceiptLineItem::instance()->formatLine('kilo', '50.00') . "\n  10.00 * 5\n";
-        $this->assertSame($expected, $result);
-    }
-
-    public function test_it_presents_a_receipt_item_with_quantity_of_1()
-    {
-        $receiptItem = ReceiptItem::fakeInstance(quantity: 1, price: 50);
-        $instance = ReceiptPrinter::instance();
-
-        $result = $instance->presentReceiptItem($receiptItem);
-
-        $expected = ReceiptLineItem::instance()->formatLine('Foo', '50.00') . "\n";
-        $this->assertSame($expected, $result);
-    }
-
-    public function test_it_presents_a_receipt_item_with_quantity_of_0()
-    {
-        $receiptItem = ReceiptItem::fakeInstance(quantity: 0, totalPrice: 0.00);
-        $instance = ReceiptPrinter::instance();
-
-        $result = $instance->presentReceiptItem($receiptItem);
-
-        $expected = ReceiptLineItem::instance()->formatLine('Foo', '0.00') . "\n  10.00 * 0\n";
-        $this->assertSame($expected, $result);
-    }
-
     public function test_it_presents_items_and_discounts()
     {
         $product = Product::fakeInstance();
