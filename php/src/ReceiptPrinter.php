@@ -25,7 +25,12 @@ class ReceiptPrinter
     {
         $result = '';
         foreach ($receipt->getItems() as $item) {
-            $itemPresentation = $this->presentReceiptItem($item);
+            $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string)$item->totalAmount()) . "\n";
+
+            if (!$item->quantityIsOne()) {
+                $line .= $this->receiptLineItem->indented($item->quantityString()) . "\n";
+            }
+            $itemPresentation = $line;
             $result .= $itemPresentation;
         }
 
@@ -41,13 +46,4 @@ class ReceiptPrinter
         return $result;
     }
 
-    public function presentReceiptItem(ReceiptItem $item): string
-    {
-        $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string) $item->totalAmount()) . "\n";
-
-        if (!$item->quantityIsOne()) {
-            $line .= $this->receiptLineItem->indented($item->quantityString()) . "\n";
-        }
-        return $line;
-    }
 }
