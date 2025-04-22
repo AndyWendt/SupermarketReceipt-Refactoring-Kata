@@ -13,4 +13,12 @@ class DiscountTest extends TestCase
 
         $this->assertSame('Foo Discount(Foo)', $instance->lineDescription());
     }
+
+    public function test_it_returns_a_price_amount()
+    {
+        $instance = Discount::fakeInstance('Foo', 1.00);
+        $result = $instance->amount();
+
+        $this->assertSame('1.00',(string) $result);
+    }
 }

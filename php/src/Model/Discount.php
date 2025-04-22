@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Supermarket\Model;
 
+use Supermarket\Price;
+
 class Discount
 {
     public static function fakeInstance(string $productName, float $discount)
@@ -37,5 +39,10 @@ class Discount
     public function lineDescription()
     {
         return "{$this->getDescription()}({$this->getProduct()->getName()})";
+    }
+
+    public function amount(): Price
+    {
+        return new Price(price: $this->getDiscountAmount());
     }
 }
