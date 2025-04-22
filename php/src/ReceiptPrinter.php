@@ -39,7 +39,7 @@ class ReceiptPrinter
         return $result;
     }
 
-    protected function presentReceiptItem(ReceiptItem $item): string
+    public function presentReceiptItem(ReceiptItem $item): string
     {
         $price = (string)new Amount(amount: $item->getTotalPrice());
         $name = $item->getProduct()->getName();

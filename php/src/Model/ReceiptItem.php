@@ -6,6 +6,12 @@ namespace Supermarket\Model;
 
 class ReceiptItem
 {
+    public static function fakeInstance(?Product $product = null, float $quantity = 5, float $price = 10, float $totalPrice = 50)
+    {
+        $product = $product ?: Product::fakeInstance();
+        return new self(product: $product, quantity: $quantity, price: $price, totalPrice: $totalPrice);
+    }
+
     public function __construct(
         private Product $product,
         private float $quantity,
