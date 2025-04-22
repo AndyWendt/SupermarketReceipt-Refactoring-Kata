@@ -22,12 +22,35 @@ class ReceiptItemTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
+    /**
+     * @dataProvider eachDataProvider
+     */
+    public function test_it_returns_the_right_quantity_string_for_each($quantity, $expected)
+    {
+        $product = Product::fakeInstance(productUnit: ProductUnit::EACH());
+        $receiptItem = ReceiptItem::fakeInstance(product: $product, quantity: $quantity);
+
+        $result = $receiptItem->quantityString();
+
+        $this->assertSame($expected, $result);
+    }
+
     public function kiloDataProvider()
     {
         return [
             [50.1, '50.100'],
             [50, '50.000'],
             [50.0001, '50.000'],
+        ];
+    }
+
+    public function eachDataProvider()
+    {
+        return [
+            [255, 'ff'],
+            [1234, '4d2'],
+            [16, '10'],
+            [12, 'c'],
         ];
     }
 }
