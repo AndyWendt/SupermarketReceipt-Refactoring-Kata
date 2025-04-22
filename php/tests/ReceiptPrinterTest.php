@@ -32,9 +32,20 @@ class ReceiptPrinterTest extends TestCase
 
         $result = $instance->presentReceiptItem($receiptItem);
 
-        $this->assertSame('Foo                                50.00
-  10.00 * 5
-', $result);
+        $expected = ReceiptLineItem::instance()->formatLine('Foo', '50.00') . "\n  10.00 * 5\n";
+        $this->assertSame($expected, $result);
+    }
+
+    public function test_it_presents_a_receipt_item_with_quantity_greater_than_1_with_kilo_quantity()
+    {
+        $product = Product::fakeInstance(ProductUnit::KILO());
+        $receiptItem = ReceiptItem::fakeInstance(product: $product);
+        $instance = ReceiptPrinter::instance();
+
+        $result = $instance->presentReceiptItem($receiptItem);
+
+        $expected = ReceiptLineItem::instance()->formatLine('kilo', '50.00') . "\n  10.00 * 5\n";
+        $this->assertSame($expected, $result);
     }
 
     public function test_it_presents_a_receipt_item_with_quantity_of_1()
