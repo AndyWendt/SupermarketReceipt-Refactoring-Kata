@@ -12,7 +12,7 @@ class ReceiptItemTest extends TestCase
     /**
      * @dataProvider kiloDataProvider
      */
-    public function test_it_returns_the_right_quantity_string_for_each($quantity, $expected)
+    public function test_it_returns_the_right_quantity_string_for_kilo($quantity, $expected)
     {
         $product = Product::fakeInstance(productUnit: ProductUnit::KILO());
         $receiptItem = ReceiptItem::fakeInstance(product: $product, quantity: $quantity);
