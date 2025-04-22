@@ -26,6 +26,19 @@ class Teller
 
     public function checkoutArticlesFrom(ShoppingCart $cart): Receipt
     {
+        $receipt = $this->createReceipt($cart);
+
+        $cart->handleOffers($receipt, $this->offers, $this->catalog);
+
+        return $receipt;
+    }
+
+    /**
+     * @param ShoppingCart $cart
+     * @return Receipt
+     */
+    public function createReceipt(ShoppingCart $cart): Receipt
+    {
         $receipt = new Receipt();
         $productQuantities = $cart->getItems();
         foreach ($productQuantities as $pq) {
@@ -35,9 +48,6 @@ class Teller
             $price = $quantity * $unitPrice;
             $receipt->addProduct($p, $quantity, $unitPrice, $price);
         }
-
-        $cart->handleOffers($receipt, $this->offers, $this->catalog);
-
         return $receipt;
     }
 }
