@@ -29,6 +29,8 @@ class ReceiptPrinter
             $result .= $itemPresentation;
         }
 
+
+
         foreach ($receipt->getDiscounts() as $discount) {
             $discountPresentation = $this->receiptLineItem->formatLine(name: $discount->lineDescription(), value: (string)$discount->amount()) . "\n";
             $result .= $discountPresentation;
@@ -41,10 +43,7 @@ class ReceiptPrinter
 
     public function presentReceiptItem(ReceiptItem $item): string
     {
-        $price = (string)new Amount(amount: $item->getTotalPrice());
-        $name = $item->getProduct()->getName();
-
-        $line = $this->receiptLineItem->formatLine(name: $name, value: $price) . "\n";
+        $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string) $item->amount()) . "\n";
 
         if ($item->getQuantity() !== 1.0) {
             $line .= '  ' . (string)new Amount(amount: $item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Supermarket\Model;
 
+use Supermarket\Amount;
+
 class ReceiptItem
 {
     public static function fakeInstance(?Product $product = null, float $quantity = 5, float $price = 10, float $totalPrice = 50)
@@ -38,5 +40,15 @@ class ReceiptItem
     public function getTotalPrice(): float
     {
         return $this->totalPrice;
+    }
+
+    public function description(): string
+    {
+        return $this->getProduct()->getName();
+    }
+
+    public function amount(): Amount
+    {
+        return new Amount(amount: $this->getTotalPrice());
     }
 }
