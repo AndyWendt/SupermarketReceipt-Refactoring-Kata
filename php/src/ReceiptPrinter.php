@@ -35,7 +35,7 @@ class ReceiptPrinter
         }
 
         $result .= "\n";
-        $result .= $this->presentTotal($receipt);
+        $result .= $this->receiptLineItem->formatLine(name: 'Total: ', value: (string)$receipt->amount());
         return $result;
     }
 
@@ -50,11 +50,6 @@ class ReceiptPrinter
             $line .= '  ' . (string)new Amount(amount: $item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
         }
         return $line;
-    }
-
-    public function presentTotal(Receipt $receipt): string
-    {
-        return $this->receiptLineItem->formatLine(name: 'Total: ', value: (string) $receipt->amount());
     }
 
     private static function presentQuantity(ReceiptItem $item): string

@@ -24,17 +24,6 @@ class ReceiptPrinterTest extends TestCase
         $this->assertSame("\n$line", $result);
     }
 
-    public function test_it_presents_a_total()
-    {
-        $receipt = new Receipt();
-        $instance = ReceiptPrinter::instance();
-
-        $result = $instance->presentTotal($receipt);
-
-        $expected = ReceiptLineItem::instance()->formatLine(name: 'Total:', value: '0.00');
-        $this->assertSame($expected, $result);
-    }
-
     public function test_it_presents_items_and_discounts()
     {
         $product = new Product('Foo', ProductUnit::EACH());
