@@ -52,7 +52,7 @@ class ReceiptPrinter
         return $line;
     }
 
-    protected function presentTotal(Receipt $receipt): string
+    public function presentTotal(Receipt $receipt): string
     {
         $name = 'Total: ';
         $value = (string)new Amount(amount: $receipt->getTotalPrice());
