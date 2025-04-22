@@ -24,14 +24,6 @@ class ReceiptPrinterTest extends TestCase
         $this->assertSame("\n$line", $result);
     }
 
-    public function test_it_presents_a_discount()
-    {
-        $discount = Discount::fakeInstance('Fizz', 5.00);
-        $result = ReceiptPrinter::instance()->presentDiscount($discount);
-        $this->assertSame('Fizz Discount(Fizz)                 5.00
-', $result);
-    }
-
     public function test_it_presents_items_and_discounts()
     {
         $product = new Product('Foo', ProductUnit::EACH());

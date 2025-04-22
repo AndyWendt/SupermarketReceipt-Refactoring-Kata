@@ -30,7 +30,7 @@ class ReceiptPrinter
         }
 
         foreach ($receipt->getDiscounts() as $discount) {
-            $discountPresentation = $this->presentDiscount($discount);
+            $discountPresentation = $this->receiptLineItem->formatLine(name: $discount->lineDescription(), value: (string)$discount->amount()) . "\n";
             $result .= $discountPresentation;
         }
 
@@ -50,11 +50,6 @@ class ReceiptPrinter
             $line .= '  ' . (string)new Price(price: $item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
         }
         return $line;
-    }
-
-    public function presentDiscount(Discount $discount): string
-    {
-        return $this->receiptLineItem->formatLine(name: $discount->lineDescription(), value: (string) $discount->amount()) . "\n";
     }
 
     protected function presentTotal(Receipt $receipt): string
