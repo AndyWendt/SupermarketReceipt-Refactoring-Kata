@@ -45,7 +45,7 @@ class ReceiptPrinter
     {
         $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string) $item->totalAmount()) . "\n";
 
-        if ($item->getQuantity() !== 1.0) {
+        if (!$item->quantityIsOne()) {
             $line .= '  ' . (string) $item->quantityString() . "\n";
         }
         return $line;
