@@ -37,6 +37,11 @@ class ReceiptItem
         return $this->price;
     }
 
+    public function amount(): Amount
+    {
+        return new Amount(amount: $this->getPrice());
+    }
+
     public function getTotalPrice(): float
     {
         return $this->totalPrice;
