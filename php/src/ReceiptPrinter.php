@@ -23,27 +23,29 @@ class ReceiptPrinter
 
     public function printReceipt(Receipt $receipt): string
     {
-        $result = '';
+        $out = [];
         foreach ($receipt->getItems() as $item) {
-            $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string)$item->totalAmount()) . "\n";
+            $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string)$item->totalAmount());
+            array_push($out, $line);
 
             if (!$item->quantityIsOne()) {
-                $line .= $this->receiptLineItem->indented($item->quantityString()) . "\n";
+                $rline = $this->receiptLineItem->indented($item->quantityString());
+                array_push($out, $rline);
             }
-            $itemPresentation = $line;
-            $result .= $itemPresentation;
         }
 
 
 
         foreach ($receipt->getDiscounts() as $discount) {
-            $discountPresentation = $this->receiptLineItem->formatLine(name: $discount->lineDescription(), value: (string)$discount->amount()) . "\n";
-            $result .= $discountPresentation;
+            $discountPresentation = $this->receiptLineItem->formatLine(name: $discount->lineDescription(), value: (string)$discount->amount());
+            array_push($out, $discountPresentation);
         }
 
-        $result .= "\n";
-        $result .= $this->receiptLineItem->formatLine(name: 'Total: ', value: (string)$receipt->amount());
-        return $result;
+        array_push($out, '');
+        $resultLine = $this->receiptLineItem->formatLine(name: 'Total: ', value: (string)$receipt->amount());
+
+        array_push($out, $resultLine);
+        return implode("\n", $out);
     }
 
 }
