@@ -5,7 +5,7 @@ namespace Tests;
 use Supermarket\Amount;
 use PHPUnit\Framework\TestCase;
 
-class PriceTest extends TestCase
+class AmountTest extends TestCase
 {
     /**
      * @dataProvider priceDataProvider
