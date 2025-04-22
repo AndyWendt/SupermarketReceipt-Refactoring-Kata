@@ -46,15 +46,8 @@ class ReceiptPrinter
         $line = $this->receiptLineItem->formatLine(name: $item->description(), value: (string) $item->totalAmount()) . "\n";
 
         if ($item->getQuantity() !== 1.0) {
-            $line .= '  ' . (string)new Amount(amount: $item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
+            $line .= '  ' . (string)new Amount(amount: $item->getPrice()) . ' * ' . $item->quantityString() . "\n";
         }
         return $line;
-    }
-
-    private static function presentQuantity(ReceiptItem $item): string
-    {
-        return $item->getProduct()->getUnit()->equals(ProductUnit::EACH()) ?
-            sprintf('%x', $item->getQuantity()) :
-            sprintf('%.3F', $item->getQuantity());
     }
 }
