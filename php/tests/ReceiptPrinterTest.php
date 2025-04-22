@@ -77,13 +77,21 @@ class ReceiptPrinterTest extends TestCase
 
         $result = $instance->printReceipt($receipt);
 
-        $this->assertSame('Foo                                25.00
-  5.00 * 5
-Foo                              1000.00
-Foo Discount(Foo)               20000.00
-Bar Discount(Bar)                   1.00
+        $receiptLineItem = ReceiptLineItem::instance();
 
-Total:                          21026.00', $result);
+        $expected = $receiptLineItem->formatLine('Foo', '25.00')
+            . "\n  5.00 * 5\n" .
+            $receiptLineItem->formatLine('Foo', '1000.00') .
+            "\n" .
+            $receiptLineItem->formatLine('Foo Discount(Foo)', '20000.00') .
+            "\n" .
+            $receiptLineItem->formatLine('Bar Discount(Bar)', '1.00') .
+            "\n" .
+            "\n" .
+            $receiptLineItem->formatLine('Total:', '21026.00')
+        ;
+
+        $this->assertSame($expected, $result);
     }
 
 }
