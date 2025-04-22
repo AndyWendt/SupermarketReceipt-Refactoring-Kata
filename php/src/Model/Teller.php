@@ -46,7 +46,7 @@ class Teller
             $quantity = $pq->getQuantity();
             $unitPrice = $this->catalog->getUnitPrice($p);
             $price = $quantity * $unitPrice;
-            $receipt->addProduct($p, $quantity, $unitPrice, $price);
+            $receipt->addProduct($p, $quantity, $unitPrice);
         }
         return $receipt;
     }
