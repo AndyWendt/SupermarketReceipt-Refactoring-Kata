@@ -13,16 +13,10 @@ class ReceiptItem
         $product = $product ?: Product::fakeInstance();
         $productQuantity = new ProductQuantity($product, $quantity);
 
-        return new self(product: $product, quantity: $quantity, price: $price, productQuantity: $productQuantity);
+        return new self(productQuantity: $productQuantity, price: $price);
     }
 
-    public function __construct(
-        private Product $product,
-        private float $quantity,
-        private float $price,
-        private ?ProductQuantity $productQuantity = null
-    ) {
-    }
+    public function __construct(private ProductQuantity $productQuantity, private float $price) {}
 
     public function getProduct(): Product
     {
@@ -46,7 +40,7 @@ class ReceiptItem
 
     public function getTotalPrice(): float
     {
-        return $this->quantity * $this->price;
+        return $this->getQuantity() * $this->price;
     }
 
     public function description(): string
