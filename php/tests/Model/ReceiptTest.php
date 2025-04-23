@@ -4,6 +4,7 @@ namespace Tests\Model;
 
 use Supermarket\Model\Discount;
 use Supermarket\Model\Product;
+use Supermarket\Model\ProductQuantity;
 use Supermarket\Model\ProductUnit;
 use Supermarket\Model\Receipt;
 use PHPUnit\Framework\TestCase;
@@ -18,8 +19,11 @@ class ReceiptTest extends TestCase
 
         $receipt = new Receipt();
 
-        $receipt->addProduct(product: $product, quantity: 5, price: 5.00);
-        $receipt->addProduct(product: $product, quantity: 1, price: 1000.00);
+        $productQuantity1 = new ProductQuantity($product, 5);
+        $productQuantity2 = new ProductQuantity($product, 1);
+
+        $receipt->addProduct(product: $product, quantity: 5, price: 5.00, productQuantity: $productQuantity1);
+        $receipt->addProduct(product: $product, quantity: 1, price: 1000.00, productQuantity: $productQuantity2);
         $receipt->addDiscount($fooDiscount);
         $receipt->addDiscount($barDiscount);
 
