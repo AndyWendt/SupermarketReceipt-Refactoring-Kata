@@ -26,12 +26,12 @@ class ReceiptItem
 
     public function getProduct(): Product
     {
-        return $this->product;
+        return $this->productQuantity->getProduct();
     }
 
     public function getQuantity(): float
     {
-        return $this->quantity;
+        return $this->productQuantity->getQuantity();
     }
 
     public function getPrice(): float
