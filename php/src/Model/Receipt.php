@@ -40,7 +40,7 @@ class Receipt
         $product = $productQuantity->getProduct();
         $quantity = $productQuantity->getQuantity();
 
-        $this->items[] = new ReceiptItem($product, $quantity, $price);
+        $this->items[] = new ReceiptItem($product, $quantity, $price, productQuantity: $productQuantity);
     }
 
     /**

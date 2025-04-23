@@ -11,13 +11,16 @@ class ReceiptItem
     public static function fakeInstance(?Product $product = null, float $quantity = 5, float $price = 10)
     {
         $product = $product ?: Product::fakeInstance();
-        return new self(product: $product, quantity: $quantity, price: $price);
+        $productQuantity = new ProductQuantity($product, $quantity);
+
+        return new self(product: $product, quantity: $quantity, price: $price, productQuantity: $productQuantity);
     }
 
     public function __construct(
         private Product $product,
         private float $quantity,
-        private float $price
+        private float $price,
+        private ?ProductQuantity $productQuantity = null
     ) {
     }
 
