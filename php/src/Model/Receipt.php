@@ -35,7 +35,7 @@ class Receipt
         return new Amount(amount: $this->getTotalPrice());
     }
 
-    public function addProduct(Product $product, float $quantity, float $price, ?ProductQuantity $productQuantity = null): void
+    public function addProduct(ProductQuantity $productQuantity, float $price): void
     {
         $product = $productQuantity->getProduct();
         $quantity = $productQuantity->getQuantity();

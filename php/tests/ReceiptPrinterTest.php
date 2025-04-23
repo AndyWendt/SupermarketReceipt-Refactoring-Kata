@@ -38,9 +38,9 @@ class ReceiptPrinterTest extends TestCase
         $productQuantity2 = new ProductQuantity($product, 0);
         $productQuantity3 = new ProductQuantity($product, 1);
 
-        $receipt->addProduct(product: $product, quantity: 5, price: 5.00, productQuantity: $productQuantity1);
-        $receipt->addProduct(product: $product, quantity: 0, price: 5.00, productQuantity: $productQuantity2);
-        $receipt->addProduct(product: $product, quantity: 1, price: 1000.00, productQuantity: $productQuantity3);
+        $receipt->addProduct(productQuantity: $productQuantity1, price: 5.00);
+        $receipt->addProduct(productQuantity: $productQuantity2, price: 5.00);
+        $receipt->addProduct(productQuantity: $productQuantity3, price: 1000.00);
         $receipt->addDiscount($fooDiscount);
         $receipt->addDiscount($barDiscount);
 
