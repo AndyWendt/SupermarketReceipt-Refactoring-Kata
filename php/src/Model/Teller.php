@@ -41,11 +41,11 @@ class Teller
     {
         $receipt = new Receipt();
         $productQuantities = $cart->getItems();
-        foreach ($productQuantities as $pq) {
-            $p = $pq->getProduct();
-            $quantity = $pq->getQuantity();
-            $unitPrice = $this->catalog->getUnitPrice($p);
-            $receipt->addProduct($p, $quantity, $unitPrice);
+        foreach ($productQuantities as $productQuantity) {
+            $product = $productQuantity->getProduct();
+            $quantity = $productQuantity->getQuantity();
+            $unitPrice = $this->catalog->getUnitPrice($product);
+            $receipt->addProduct($product, $quantity, $unitPrice);
         }
         return $receipt;
     }
